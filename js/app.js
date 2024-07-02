@@ -21,7 +21,12 @@ function removeFromCart () {
             }
             cart.splice(itemIndex, 1);
             localStorage.setItem('CART', JSON.stringify(cart) );
-            displayCart();
+            if (typeof displayCart === "function") {
+                displayCart();
+                }
+            if (typeof displayCartProducts === "function") {
+                displayCartProducts();
+                }
             if (cart.length == 0) {
                 localStorage.clear();
                }
@@ -33,7 +38,12 @@ function clearCart () {
     clearCartButton.addEventListener("click", () => {
         cart = [];
         localStorage.clear();
-        displayCart();
+        if (typeof displayCart === "function") {
+            displayCart();
+        }
+        if (typeof displayCartProducts === "function") {
+            displayCartProducts();
+        }  
     })
 }
 clearCart();
