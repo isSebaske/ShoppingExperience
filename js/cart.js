@@ -23,6 +23,50 @@ let displayCartProducts = function(){
 };
 displayCartProducts();
 
+let subtotal,
+    shipping,
+    tax,
+    tota;
+
+
+let calculateOrderSummary = function(){
+    subtotal = 0,
+    shipping = 0,
+    tax = 0,
+    tota = 0;
+    clearStorageAndCart();
+    cart.forEach(cartitem => {
+        subtotal += cartitem.price;
+        shipping++;
+    });
+    tax = (subtotal + shipping) * 0.061;
+    total = subtotal + shipping + tax;
+}
+
+
+let displayOrderSummary = function(){
+    calculateOrderSummary();
+    sideBarContainer.innerHTML = `
+        <div class="tableRow">
+            <div class="tableCell">Subtotal</div>
+            <div class="tableCell">&dollar; ${subtotal.toFixed(2)}</div>
+        </div>
+        <div class="tableRow">
+            <div class="tableCell">Shipping</div>
+            <div class="tableCell">&dollar; ${shipping.toFixed(2)}</div>
+        </div>
+        <div class="tableRow">
+            <div class="tableCell borderBottom">Sales Tax</div>
+            <div class="tableCell borderBottom">&dollar; ${tax.toFixed(2)}</div>
+        </div>
+        <div class="tableRow">
+            <div class="tableCell">Total</div>
+            <div class="tableCell bold">&dollar; ${total.toFixed(2)}</div>
+        </div>`
+}
+displayOrderSummary();
+
+
 
 
 

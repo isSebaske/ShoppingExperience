@@ -26,6 +26,7 @@ function removeFromCart () {
                 }
             if (typeof displayCartProducts === "function") {
                 displayCartProducts();
+                displayOrderSummary();
                 }
             if (cart.length == 0) {
                 localStorage.clear();
@@ -34,7 +35,7 @@ function removeFromCart () {
     }
 }
 function clearCart () {
-    const clearCartButton = document.getElementById("clearCartButton");
+    let clearCartButton = document.getElementById("clearCartButton");
     clearCartButton.addEventListener("click", () => {
         cart = [];
         localStorage.clear();
@@ -43,7 +44,8 @@ function clearCart () {
         }
         if (typeof displayCartProducts === "function") {
             displayCartProducts();
+            displayOrderSummary();
         }  
-    })
+    });
 }
 clearCart();
