@@ -9,7 +9,7 @@ let displayCartProducts = function(){
                     <img src="${cartItem.image}" alt="${cartItem.description}">
                     <p class="cartTitle">${cartItem.name}</p>
                     <p class="cartDescription">${cartItem.description}</p>
-                    <div class="cartQuantity"><input type="number" value="${cartItem.quantity}" min="1" max="5"></div>
+                    <div class="cartQuantity"><input class="quantityNumberInput" id="${cartItem.id}" type="number" value="${cartItem.quantity}" min="1" max="5"></input></div>
                     <p class="cartPrice">&dollar; ${cartItem.price}</p>
                 </div>
                 <p class="textAlignRight removeMargins"><a class="removeLink" href="#" id="${cartItem.id}">Remove</a></p>
@@ -36,8 +36,8 @@ let calculateOrderSummary = function(){
     tota = 0;
     clearStorageAndCart();
     cart.forEach(cartitem => {
-        subtotal += cartitem.price;
-        shipping++;
+        subtotal += cartitem.price * cartitem.quantity;
+        shipping += cartitem.quantity;
     });
     tax = (subtotal + shipping) * 0.061;
     total = subtotal + shipping + tax;
@@ -45,6 +45,7 @@ let calculateOrderSummary = function(){
 
 
 let displayOrderSummary = function(){
+    updateQuantity();
     calculateOrderSummary();
     sideBarContainer.innerHTML = `
         <div class="tableRow">
