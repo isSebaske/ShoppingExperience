@@ -67,3 +67,17 @@ function updateQuantity() {
         });
     }
 }
+
+$(document).ready(()=>{
+    let sidebarOrigin = $("aside").offset();
+    $(window).scroll(()=>{
+        let scrollPosition = $('html').scrollTop();
+        if ( sidebarOrigin.top < scrollPosition){
+            $("aside").addClass("sticky");
+            $("aside").css("width", "17.9%");
+        } else {
+            $("aside").removeClass("sticky");
+            $("aside").css("width", "20%");
+        }
+    });
+})

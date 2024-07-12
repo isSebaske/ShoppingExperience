@@ -253,3 +253,9 @@ footer {
     margin: 0;
     font-style: italic;
 }
+
+.sticky {
+    position: fixed;
+    top: 8px;
+    right: 5.35%;
+}
