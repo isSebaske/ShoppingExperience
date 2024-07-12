@@ -67,7 +67,14 @@ let displayOrderSummary = function(){
 }
 displayOrderSummary();
 
-
-
-
-
+$(document).ready(()=>{
+    $("#checkoutThankYou").hide();
+    $("#checkoutButton").click(()=>{
+        if(subtotal == 0){
+            $("#checkoutThankYou").html("The cart is currently empty.").slideDown(500);
+        } else {
+            $("#checkoutThankYou").slideDown(500);
+        }
+        
+    })
+});
