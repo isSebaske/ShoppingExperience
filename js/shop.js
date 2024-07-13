@@ -56,6 +56,7 @@ $(".next").click(()=>{
         currentPage++;
         paginate();
         saveToLocalStorage();
+        fadeButtons();
     }
     
 });
@@ -64,7 +65,8 @@ $(".previous").click(()=>{
     if(currentPage > 1){
         currentPage--;
         paginate();
-        saveToLocalStorage(); 
+        saveToLocalStorage();
+        fadeButtons(); 
     }
 });
 
