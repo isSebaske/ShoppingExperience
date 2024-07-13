@@ -1,19 +1,72 @@
 
 let cardContainer = document.querySelector("#cardContainer");
-function addProducts(){
-    products.forEach(individualCard => 
-        cardContainer.innerHTML += `<div class="card" id="cardNumber${individualCard.id}">
-<img src="${individualCard.image}" alt="${individualCard.description}">
-<div class="cardText">
-    <h4>${individualCard.name}</h4>
-    <p>${individualCard.description}</p>
-    <p>&dollar; ${individualCard.price}</p>
-    <button class="cartButton" id="${individualCard.id}">Add to Cart</button>
-</div>
-</div>`
-    );
+// function addProducts(){
+//     products.forEach(individualCard => 
+//         cardContainer.innerHTML += `<div class="card" id="cardNumber${individualCard.id}">
+// <img src="${individualCard.image}" alt="${individualCard.description}">
+// <div class="cardText">
+//     <h4>${individualCard.name}</h4>
+//     <p>${individualCard.description}</p>
+//     <p>&dollar; ${individualCard.price}</p>
+//     <button class="cartButton" id="${individualCard.id}">Add to Cart</button>
+// </div>
+// </div>`
+//     );
+// }
+// addProducts();
+
+let productsPerPage = 6,
+    currentPage = 1,
+    pagedResults = [],
+    totalProducts = products.length;
+
+function paginate (){
+    let end = currentPage * productsPerPage;
+    let start =  end - productsPerPage;
+    pagedResults = products.slice(start, end);
+    $("#cardContainer").empty();
+    $.each(pagedResults, (index, individualCard)=>{
+        $("#cardContainer").append(`
+            <div class="card" id="cardNumber${individualCard.id}">
+                <img src="${individualCard.image}" alt="${individualCard.description}">
+                <div class="cardText">
+                    <h4>${individualCard.name}</h4>
+                    <p>${individualCard.description}</p>
+                    <p>&dollar; ${individualCard.price}</p>
+                    <button class="cartButton" id="${individualCard.id}">Add to Cart</button>
+                </div>
+            </div>`
+        );
+    });
+    if(currentPage <= 1){
+        $(".previous").attr("disabled",true);
+    } else {
+        $(".previous").attr("disabled",false);
+    }
+    if( (currentPage * productsPerPage) >= totalProducts){
+        $(".next").attr("disabled",true);
+    } else {
+        $(".next").attr("disabled",false);
+    }
 }
-addProducts();
+paginate();
+
+$(".next").click(()=>{
+    if((currentPage * productsPerPage) <= totalProducts){
+        currentPage++;
+        paginate();
+        saveToLocalStorage();
+    }
+    
+});
+
+$(".previous").click(()=>{
+    if(currentPage > 1){
+        currentPage--;
+        paginate();
+        saveToLocalStorage(); 
+    }
+});
 
 function saveToLocalStorage(){
     let cartButton = document.getElementsByClassName("cartButton");
